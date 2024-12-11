@@ -117,9 +117,11 @@ with tab1:
         st.write("\n\n\n")
         st.markdown("<h2 style='text-align: center;'>Monthly Orders</h2>", unsafe_allow_html=True)
 
+        monthly_orders_df['month_name'] = monthly_orders_df['order_purchase_timestamp'].dt.strftime('%B')
+
         fig, ax = plt.subplots(figsize=(16, 7))
+
         ax.plot(
-            
             monthly_orders_df["order_purchase_timestamp"],
             monthly_orders_df["order_count"],
             marker='o', 
@@ -127,8 +129,14 @@ with tab1:
             color="#90CAF9"
         )
         
+        ax.set_xlabel('Time', fontsize=17,labelpad=20)
+        ax.set_ylabel('Order', fontsize=17,labelpad=20) 
+
         ax.tick_params(axis='y', labelsize=20)
-        ax.tick_params(axis='x', labelsize=15)
+        ax.tick_params(axis='x', rotation=45, labelsize=15)
+
+        ax.set_xticks(monthly_orders_df["order_purchase_timestamp"])
+        ax.set_xticklabels(monthly_orders_df['month_name'], rotation=45, fontsize=15)
         ax.set_facecolor('#f9f9f9')
 
     
@@ -207,7 +215,7 @@ with tab7:
 
         fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(16, 5))
 
-        colors = ["#90CAF9", "#90CAF9", "#90CAF9", "#90CAF9", "#90CAF9"]
+        colors = ["#90CAF9", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
         sns.barplot(y="recency", x="customer_id", hue="customer_id", data=rfm_df.sort_values(by="recency", ascending=True).head(5), palette=colors, ax=ax)
 
         ax.set_title("By Recency (days)", loc="center", fontsize=20, fontweight='bold', pad=15)
@@ -217,11 +225,12 @@ with tab7:
 
         ax.tick_params(axis ='x', labelsize=9)
         ax.tick_params(axis ='y', labelsize=20)
+        ax.set_facecolor('#f9f9f9')
 
         st.pyplot(fig)
 
 
-        st.markdown("<div style='height: 40px;'></div>", unsafe_allow_html=True)
+        st.markdown("<div style='height: 50px;'></div>", unsafe_allow_html=True)
 
 
         fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(16, 5))
@@ -236,27 +245,29 @@ with tab7:
 
         ax.tick_params(axis ='x', labelsize=9)
         ax.tick_params(axis ='y', labelsize=20)
+        ax.set_facecolor('#f9f9f9')
 
 
         st.pyplot(fig)
         
 
-        st.markdown("<div style='height: 40px;'></div>", unsafe_allow_html=True)
+        st.markdown("<div style='height: 50px;'></div>", unsafe_allow_html=True)
 
        
 
         fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(16, 5))
 
-        colors = ["#90CAF9", "#90CAF9", "#90CAF9", "#90CAF9", "#90CAF9"]
+        colors = ["#90CAF9", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
         sns.barplot(y="monetary", x="customer_id", hue="customer_id", data=rfm_df.sort_values(by="monetary", ascending=False).head(5), palette=colors, ax=ax)
 
         ax.set_title("By Monetary", loc="center", fontsize=20, fontweight='bold', pad=15)
 
         ax.set_xlabel('Customer ID', fontsize=12, fontstyle='italic', labelpad=15) 
-        ax.set_ylabel('Monetary ($)', fontsize=12, fontstyle='italic', labelpad=15)
+        ax.set_ylabel('Amount ($)', fontsize=12, fontstyle='italic', labelpad=15)
 
         ax.tick_params(axis ='x', labelsize=9)
         ax.tick_params(axis ='y', labelsize=20)
+        ax.set_facecolor('#f9f9f9')
 
         st.pyplot(fig)
 
